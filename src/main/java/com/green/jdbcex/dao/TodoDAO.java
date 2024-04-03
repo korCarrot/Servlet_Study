@@ -94,7 +94,7 @@ public class TodoDAO {
                 .title(rs.getString("title"))
                 .dueDate(rs.getDate("dueDate").toLocalDate())
                 .finished(rs.getBoolean("finished")).build();
-//$
+//$$
         return todoVO;
     }
 
