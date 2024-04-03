@@ -1,15 +1,19 @@
-package com.green.jdbcex.domain;
+package com.green.jdbcex.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Getter
+
+
+@Data
 @Builder
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoVO {
+public class TodoDTO {
 
     private Long tno;
 
@@ -20,4 +24,3 @@ public class TodoVO {
     private boolean finished;
 
 }
-

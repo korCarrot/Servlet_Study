@@ -19,7 +19,7 @@ public enum ConnectionUtil {
         config.setPassword("webuser");
         config.addDataSourceProperty("cachePrepStmts", "true"); //Prepared Statement 캐싱을 활성화
         config.addDataSourceProperty("prepStmtCacheSize", "250"); //Prepared Statement 캐시의 크기를 설정합니다. 여기서는 캐시 크기를 250
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048"); //Prepared Statement 캐시의 크기를 설정합니다. 여기서는 캐시 크기를 250
 
 
         hikariDataSource=new HikariDataSource(config);

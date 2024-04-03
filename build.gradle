@@ -34,8 +34,22 @@ dependencies {
 
   implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.9'
   compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+
+  /* DBCP */
   implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
 
+  /*  VO를  DTO를 변환하거나  DTO를 VO로 변환해주는 라이브러리 */
+  implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
+
+
+  /* log4j2를 사용해야함(보안상 1은 안됨)*/
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.20.0'
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.20.0'
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.20.0'
+
+
+  /* JSTL */
+  implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
 
   annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
   testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
@@ -48,4 +62,4 @@ dependencies {
 }
 
 test {
-  useJUnitPlatform()}
+useJUnitPlatform()}
