@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TodoDAO {
 
@@ -48,20 +50,66 @@ public class TodoDAO {
         return now;
     }
 
-//   public void insert(TodoVO todoVO) throws Exception {
-//       String sql="insert into tbl_todo(title, dueDate, finished) VALUES (?, ?, ?)";
-//       @Cleanup Connection conn=ConnectionUtil.INSTANCE.getConnection();
-//       @Cleanup PreparedStatement stmt=conn.prepareStatement(sql);
-//
-//        stmt.setString(1, todoVO.getTitle() );
-//        stmt.setDate(2, Date.valueOf(todoVO.getDueDate()));
-//        stmt.setBoolean(3, todoVO.isFinished() );
-//
-//        stmt.executeUpdate();
-//
-//    }
 
-    //교재 코드
+    //전체 글 목록 조회
+
+    public List<TodoVO> selectAll() throws Exception{
+
+        List<TodoVO> todoVOList=new ArrayList<>();
+
+        String sql = "select * from tbl_todo";
+        @Cleanup  //  try catch 리소스문을 대체(가독성 향상), @Cleanup이 추가된 변수는 close()가 호출되는 것 보장
+        Connection conn = com.green.jdbcex.dao.ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        @Cleanup
+        ResultSet rs = pstmt.executeQuery();
+
+        while(rs.next()){
+          TodoVO todoVO= TodoVO.builder().tno(rs.getLong("tno"))
+                            .title(rs.getString("title"))
+                    .dueDate(rs.getDate("dueDate").toLocalDate())
+                    .finished(rs.getBoolean("finished")).build();
+            todoVOList.add(todoVO);
+        }
+        return todoVOList;
+    }
+
+    public TodoVO selectOne(Long tno) throws Exception{
+        String sql = "select * from tbl_todo where tno=?";
+        @Cleanup  //  try catch 리소스문을 대체(가독성 향상), @Cleanup이 추가된 변수는 close()가 호출되는 것 보장
+        Connection conn = com.green.jdbcex.dao.ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+
+        //1번글 설정
+        pstmt.setLong(1, tno);
+
+        @Cleanup
+        ResultSet rs = pstmt.executeQuery();
+
+        rs.next();
+        TodoVO todoVO= TodoVO.builder().tno(rs.getLong("tno"))
+                .title(rs.getString("title"))
+                .dueDate(rs.getDate("dueDate").toLocalDate())
+                .finished(rs.getBoolean("finished")).build();
+
+        return todoVO;
+    }
+
+    //글 수정
+    public void modArticle(TodoVO todoVO) throws Exception{
+        String sql = "update tbl_todo set title=?, dueDATE=? where tno=?";
+        @Cleanup Connection connection=ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt=connection.prepareStatement(sql);
+        pstmt.setString(1,todoVO.getTitle());
+        pstmt.setDate(2, Date.valueOf(todoVO.getDueDate()));
+        pstmt.setLong(3,todoVO.getTno());
+        pstmt.executeUpdate();
+    }
+
+    // 글 목록 추가
     public void insert(TodoVO todoVO) throws Exception {
         String sql = "insert into tbl_todo (title, dueDate, finished) values (?, ?, ?)";
 
@@ -74,6 +122,21 @@ public class TodoDAO {
 
         preparedStatement.executeUpdate();
 
+    }
+
+    //글 삭제
+
+    public void delete(Long tno) throws Exception{
+        String sql = "delete from tbl_todo where tno=?";
+        @Cleanup  //  try catch 리소스문을 대체(가독성 향상), @Cleanup이 추가된 변수는 close()가 호출되는 것 보장
+        Connection conn = com.green.jdbcex.dao.ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        //삭제할 글 설정
+        pstmt.setLong(1, tno);
+
+        pstmt.executeUpdate();
     }
 
 }
