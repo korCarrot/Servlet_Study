@@ -1,4 +1,4 @@
-package com.green.jdbcex.utility;
+package com.green.jdbcex.util;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
@@ -11,11 +11,13 @@ public enum MapperUtil {
     private ModelMapper modelMapper;
 
     MapperUtil() {
-        this.modelMapper =new ModelMapper();
+        this.modelMapper= new ModelMapper();
         this.modelMapper.getConfiguration().setFieldMatchingEnabled(true)
                 .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
+
     }
+
 
     public ModelMapper get(){
         return modelMapper;
