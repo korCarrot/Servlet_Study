@@ -27,7 +27,7 @@ public class TodoRegisterController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("utf-8");
+//        req.setCharacterEncoding("utf-8");
 //        resp.setContentType("text/html;charset=utf-8");
         log.info("/todo/register POST .......");
 
@@ -45,6 +45,6 @@ public class TodoRegisterController extends HttpServlet {
             log.info("registerController register메소드 오류");
         }
 
-        resp.sendRedirect("/todo/list");
+        resp.sendRedirect("/jdbcex/todo/list");
     }
 }
