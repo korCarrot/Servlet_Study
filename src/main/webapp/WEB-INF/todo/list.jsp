@@ -9,6 +9,9 @@
 <h1>Todo List</h1>
 <body>
 <%--${todoDTOList}--%>
+
+현재의 Application : ${appName}
+
 ${loginInfo.mid}님 방가방가
 <ul>
     <c:forEach items="${todoDTOList}" var="dto">
