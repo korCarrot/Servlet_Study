@@ -78,13 +78,17 @@ public class LoginCheckFilter implements Filter {
             return null;
         }
 
+//       Arrays.stream(cookies): 주어진 배열을 스트림으로 변환합니다. 이를 통해 배열 요소에 대해 함수형 프로그래밍 방식으로 연산을 수행할 수 있습니다.
+//      .filter((cookie) -> {return cookie.getName().equals(name);}): 스트림 요소를 필터링하여 주어진 조건을 만족하는 요소만을 남깁니다. 여기서는 각 쿠키의 이름이 주어진 이름과 일치하는지 확인합니다.
+//        .findFirst(): 필터링된 요소 중에서 첫 번째 요소를 반환합니다. 이때, 해당 조건을 만족하는 요소가 없다면 Optional.empty()를 반환합니다.
         Optional<Cookie> result  =Arrays.stream(cookies).filter((cookie)->{return cookie.getName().equals(name);}).findFirst();
 
         return result.isPresent() ?  result.get() : null;
 
-
-
-
+//Optional<Cookie>을 사용하는 이유는 다음과 같습니다:
+//Null 안전성: 쿠키를 찾을 때 쿠키 배열이 비어 있거나 찾는 쿠키가 존재하지 않을 수 있습니다. 이런 경우에 직접적으로 null을 반환하면 NullPointerException과 같은 예외가 발생할 수 있습니다. 그러나 Optional을 사용하면 이러한 예외를 방지하고 코드를 더 안전하게 만들 수 있습니다.
+//명시적인 존재 여부 표현: Optional은 값이 존재하는지 여부를 명시적으로 표현합니다. 반환된 Optional 객체가 비어있으면 쿠키를 찾지 못한 것이며, 값이 존재하면 해당 쿠키를 찾은 것입니다. 이를 통해 클라이언트 코드에서 쿠키가 존재하는지 또는 존재하지 않는지를 명확하게 파악할 수 있습니다.
+//메서드 체이닝: Optional은 메서드 체이닝을 통해 연속된 작업을 수행할 수 있습니다. 예를 들어, 쿠키를 찾은 후에 추가적인 작업을 수행할 수 있습니다. 이를 통해 코드를 더 간결하고 가독성 있게 작성할 수 있습니다.
     }
 
 }
